@@ -1,0 +1,261 @@
+<!-- ФОЕТ ХНУРЕ: інтерактивна карта освітніх компонентів та обладнання. Вставити в блок WordPress «Власний HTML». -->
+<div id="foet-map-2026" class="foet-map">
+  <div class="foet-map__hero"><span class="foet-map__eyebrow">Бакалаврат G6 → Магістратура G6 → PhD E6</span><h2>Освітня траєкторія кафедри ФОЕТ</h2><p>Від бакалаврату до магістратури й аспірантури. Освітні компоненти та дослідницький шлях об’єднані в одну інтерактивну дошку; обладнання кафедри показується лише там, де передбачений відповідний зв’язок.</p></div>
+  <div class="foet-map__tabs" role="tablist" aria-label="Режим перегляду">
+    <button type="button" data-tab="course" aria-selected="false">За дисципліною</button>
+    <button type="button" data-tab="equipment" aria-selected="false">За обладнанням</button>
+    <button type="button" class="is-active" data-tab="route" aria-selected="true">Освітній маршрут</button>
+  </div>
+  <div class="foet-map__levels" data-levels role="group" aria-label="Рівень освіти"><button type="button" data-level="master" aria-pressed="false">Магістратура G6</button><button type="button" data-level="phd" aria-pressed="false">PhD E6</button><button type="button" class="is-active" data-level="bachelor" aria-pressed="true">Бакалаврат G6</button></div><div class="foet-map__course-types" data-course-types role="group" aria-label="Тип освітнього компонента"><button type="button" class="is-active" data-course-type="required" aria-pressed="true">Обов’язкові ОК</button><button type="button" data-course-type="elective" aria-pressed="false">Вибіркові компоненти</button></div>
+  <div class="foet-map__quick" role="group" aria-label="Перехід між рівнями"><button type="button" data-jump="bachelor">01 · Бакалаврат</button><button type="button" data-jump="master">02 · Магістратура</button><button type="button" data-jump="phd">03 · PhD</button></div><div class="foet-map__filters" data-filters><label for="foet-map-choice">Оберіть освітній компонент</label><select id="foet-map-choice"></select></div>
+  <div class="foet-map__result" aria-live="polite"><div class="foet-map__meta" data-meta></div><h3 data-title></h3><p data-desc></p><div class="foet-map__cards" data-cards></div></div>
+  <section class="foet-map__personal" aria-labelledby="foet-personal-heading">
+    <h3 id="foet-personal-heading">Моя індивідуальна освітня траєкторія</h3>
+    <p>Оберіть рівень освіти та позначте дисципліни, які плануєте включити до власного маршруту. Це попередній конструктор, а не офіційна процедура вибору.</p>
+    <label for="foet-personal-level">Рівень освіти</label>
+    <select id="foet-personal-level"><option value="bachelor">Бакалаврат G6</option><option value="master">Магістратура G6</option><option value="phd">PhD E6</option></select>
+    <div id="foet-sem-guide" class="foet-sem-guide"><div id="foet-sem-head"></div><div id="foet-sem-nav"></div><div id="foet-sem-status"></div></div>
+    <div class="foet-map__personal-layout">
+      <div><h4>Вибіркові компоненти освітньої програми</h4><div id="foet-personal-options" class="foet-map__personal-options"></div></div>
+      <div class="foet-map__personal-summary"><h4>Мій маршрут</h4><p id="foet-personal-summary" aria-live="polite"></p><div id="foet-personal-selected"></div><button type="button" id="foet-personal-copy">Скопіювати вибрані дисципліни</button> <button type="button" id="foet-personal-print">Друкувати траєкторію / PDF</button></div>
+    </div>
+    <h4>Загальноуніверситетський каталог вибіркових дисциплін ХНУРЕ</h4>
+    <div class="foet-map__catalog">
+      <a target="_blank" rel="noopener noreferrer" href="https://nure.ua/zagalnij-katalog-vibirkovih-navchalnih-disciplin/vibirkovi-gumanitarni-ta-socialno-ekonomichni-navchalni-disciplini">Гуманітарні та соціально-економічні дисципліни ↗</a>
+      <a target="_blank" rel="noopener noreferrer" href="https://nure.ua/zagalnij-katalog-vibirkovih-navchalnih-disciplin/vibirkovi-navchalni-disciplini-ciklu-profesijno-praktichnoi-pidgotovki">Дисципліни професійно-практичної підготовки ↗</a>
+    </div>
+    <h4>Додавання дисципліни із загального каталогу</h4>
+    <div class="foet-map__catalog-entry"><label>Категорія<select id="foet-ext-category"><option value="human">Гуманітарна та соціально-економічна</option><option value="professional">Професійно-практична</option></select></label><label>Назва дисципліни<input id="foet-ext-name" placeholder="Назва з офіційного каталогу"></label><label>Кредити ЄКТС<input id="foet-ext-credits" type="number" min="0.5" step="0.5" placeholder="Напр. 3"></label><label>Семестр<select id="foet-ext-sem"></select></label><button type="button" id="foet-ext-add">Додати дисципліну</button></div>
+    <p id="foet-ext-feedback" role="status"></p><div id="foet-ext-list"></div>
+    <p class="foet-map__personal-caution">Внесені вручну дисципліни з каталогу потребують перевірки за офіційними даними; самостійне внесення не підтверджує право на їх зарахування. Для PhD освітня складова містить 8 кредитів ЄКТС вибіркових компонентів; індивідуальний план наукової роботи формується окремо.</p>
+  </section>
+</div>
+<style>
+#foet-map-2026{--fblue:#1769aa;--fink:#18334a;--fline:#dbe7f0;--fmuted:#5b7284;box-sizing:border-box;color:var(--fink);font-family:inherit;max-width:1200px;margin:22px auto;background:#fff}#foet-map-2026 *{box-sizing:border-box}#foet-map-2026 .foet-map__hero{background:#f5f9fd;border:1px solid var(--fline);border-radius:18px;padding:30px}#foet-map-2026 .foet-map__eyebrow{font-size:13px;color:var(--fblue);font-weight:700;letter-spacing:.04em}#foet-map-2026 h2{font-size:clamp(23px,3vw,32px);line-height:1.25;margin:10px 0;color:var(--fink)}#foet-map-2026 p{line-height:1.65;margin:8px 0;color:var(--fmuted)}#foet-map-2026 .foet-map__tabs{display:flex;flex-wrap:wrap;gap:9px;margin:20px 0}#foet-map-2026 button,#foet-map-2026 select{font:inherit}#foet-map-2026 .foet-map__tabs button{cursor:pointer;border:1px solid var(--fline);border-radius:11px;background:#fff;color:var(--fink);padding:11px 17px;font-weight:600}#foet-map-2026 .foet-map__tabs button.is-active{background:var(--fblue);color:#fff;border-color:var(--fblue)}#foet-map-2026 button:focus-visible,#foet-map-2026 select:focus-visible{outline:3px solid #8ec6f2;outline-offset:2px}#foet-map-2026 .foet-map__filters{display:grid;gap:9px;margin:18px 0}#foet-map-2026 label{font-weight:600}#foet-map-2026 select{width:100%;max-width:780px;padding:12px 14px;border:1px solid #bed2e3;border-radius:10px;background:#fff;color:var(--fink)}#foet-map-2026 .foet-map__result{border:1px solid var(--fline);border-radius:16px;padding:24px}#foet-map-2026 .foet-map__meta{color:var(--fblue);font-weight:700;font-size:13px}#foet-map-2026 h3{font-size:21px;margin:8px 0 10px;color:var(--fink)}#foet-map-2026 .foet-map__cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin-top:18px}#foet-map-2026 .foet-map__card{border:1px solid var(--fline);border-radius:13px;padding:16px;background:#fbfdff;min-height:112px}#foet-map-2026 .foet-map__card strong{display:block;line-height:1.4}#foet-map-2026 .foet-map__card small{display:block;color:var(--fmuted);margin-top:9px;line-height:1.5}#foet-map-2026 .foet-map__note{font-size:12px;margin-top:16px}#foet-map-2026 .foet-map__route-nav{display:flex;justify-content:space-between;gap:12px;margin-top:16px}#foet-map-2026 .foet-map__route-nav button{border:1px solid var(--fline);background:#fff;border-radius:10px;padding:10px 16px;cursor:pointer;color:var(--fblue);font-weight:600}#foet-map-2026 .foet-map__route-nav button:disabled{opacity:.4;cursor:not-allowed}@media(max-width:580px){#foet-map-2026 .foet-map__hero,#foet-map-2026 .foet-map__result{padding:18px}#foet-map-2026 .foet-map__tabs button{flex:1 1 100%}}
+#foet-map-2026 .foet-map__course-types{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0 2px}#foet-map-2026 .foet-map__course-types button{cursor:pointer;border:1px solid #c8dce9;background:#fff;border-radius:10px;padding:10px 17px;color:var(--fink);font-weight:600}#foet-map-2026 .foet-map__course-types button.is-active{background:#e8f3fc;color:#145c93;border-color:#82b9e1}
+#foet-map-2026 .foet-map__course-types[hidden],#foet-map-2026 .foet-map__levels[hidden]{display:none}#foet-map-2026 .foet-map__levels{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0 2px}#foet-map-2026 .foet-map__levels button{cursor:pointer;border:1px solid #c8dce9;background:#fff;border-radius:10px;padding:10px 17px;color:var(--fink);font-weight:600}#foet-map-2026 .foet-map__levels button.is-active{background:#e8f3fc;color:#145c93;border-color:#82b9e1}
+#foet-map-2026 .foet-map__route-course{font:inherit;text-align:left;cursor:pointer;color:inherit}#foet-map-2026 .foet-map__route-course:hover{border-color:#86b9df;background:#f1f8fe}#foet-map-2026 .foet-map__route-elective{font-size:13px;color:#587084;margin-top:12px}#foet-map-2026 .foet-map__cards:empty{display:none}
+#foet-map-2026 .foet-map__quick{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0}#foet-map-2026 .foet-map__quick button{font:inherit;cursor:pointer;border:1px solid #c8dce9;border-radius:11px;background:#f6fafe;color:#1769aa;padding:10px 15px;font-weight:650}#foet-map-2026 .foet-map__quick button:hover{background:#e8f3fc}#foet-map-2026 .foet-map__quick button:focus-visible{outline:3px solid #8ec6f2;outline-offset:2px}
+#foet-map-2026 .foet-map__personal{margin-top:22px;border:1px solid var(--fline);border-radius:16px;padding:24px;background:#fff}#foet-map-2026 .foet-map__personal h3{margin-top:0}#foet-map-2026 .foet-map__personal h4{font-size:16px;margin:18px 0 10px}#foet-map-2026 .foet-map__personal-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;margin-top:12px}#foet-map-2026 .foet-map__personal-options{display:grid;gap:9px}#foet-map-2026 .foet-map__personal-options label{display:flex;align-items:flex-start;gap:10px;font-weight:400;padding:11px;border:1px solid var(--fline);border-radius:10px}#foet-map-2026 .foet-map__personal-options input{margin-top:4px;accent-color:var(--fblue)}#foet-map-2026 .foet-map__personal-summary{background:#f6fafe;border:1px solid var(--fline);border-radius:12px;padding:15px}#foet-map-2026 .foet-map__catalog{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 18px}#foet-map-2026 .foet-map__catalog a{display:block;border:1px solid #c8dce9;border-radius:12px;padding:16px;color:var(--fblue);font-weight:650;text-decoration:none}#foet-map-2026 .foet-map__catalog a:hover{background:#f1f8fe}#foet-map-2026 textarea{display:block;width:100%;font:inherit;border:1px solid #bed2e3;border-radius:10px;padding:12px;margin-top:9px}#foet-map-2026 #foet-personal-print{border:1px solid #1764a4;border-radius:10px;background:#1764a4;color:#fff;padding:10px 13px;cursor:pointer;font:inherit;margin-top:8px}#foet-map-2026 #foet-personal-copy{border:1px solid #bed2e3;border-radius:10px;background:#fff;color:var(--fblue);padding:10px 13px;cursor:pointer;font:inherit}#foet-map-2026 .foet-map__personal-caution{font-size:13px}#foet-map-2026 #foet-personal-selected{font-size:14px;line-height:1.65;margin-bottom:12px;white-space:pre-line}@media(max-width:700px){#foet-map-2026 .foet-map__personal-layout,#foet-map-2026 .foet-map__catalog{grid-template-columns:1fr}#foet-map-2026 .foet-map__personal{padding:18px}}
+#foet-map-2026 .foet-map__catalog-entry{display:grid;grid-template-columns:1fr 2fr 1fr 1fr auto;gap:9px;align-items:end}#foet-map-2026 .foet-map__catalog-entry label{font-size:13px;font-weight:600}#foet-map-2026 .foet-map__catalog-entry input,#foet-map-2026 .foet-map__catalog-entry select{display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:9px;border:1px solid #bed2e3;border-radius:8px;font:inherit}#foet-map-2026 .foet-map__catalog-entry button{padding:10px;border:0;border-radius:8px;background:#1764a4;color:white;cursor:pointer}#foet-map-2026 #foet-ext-list>div{display:flex;justify-content:space-between;gap:12px;padding:8px;border-bottom:1px solid #d9e5ee}#foet-map-2026 #foet-ext-list button{background:white;border:1px solid #bed2e3;border-radius:6px;cursor:pointer}#foet-map-2026 .foet-map__meter{margin:8px 0;padding:9px;background:white;border-radius:8px;border:1px solid #d5e4ef}#foet-map-2026 .foet-map__meter progress{width:100%;accent-color:#1764a4}#foet-map-2026 .foet-map__error{color:#a33b20;font-weight:600}#foet-map-2026 #foet-personal-print:disabled{opacity:.5;cursor:not-allowed}@media(max-width:850px){#foet-map-2026 .foet-map__catalog-entry{grid-template-columns:1fr 1fr}}
+#foet-map-2026 .foet-sem-guide{margin:18px 0;padding:17px;border:1px solid #bfd8ea;border-radius:14px;background:#f5f9fd}#foet-map-2026 #foet-sem-head{font-size:18px;font-weight:700;color:#175d98}#foet-map-2026 #foet-sem-nav{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}#foet-map-2026 #foet-sem-nav button{background:white;border:1px solid #c3d9ea;border-radius:8px;padding:8px 12px;cursor:pointer;color:#175d98}#foet-map-2026 #foet-sem-nav button.active{background:#1764a4;color:white}#foet-map-2026 #foet-sem-status{line-height:1.6}#foet-map-2026 .foet-sem-ok{color:#18714d;font-weight:700}#foet-map-2026 .foet-sem-alert{color:#a33b20;font-weight:650}#foet-map-2026 .foet-sem-guide button:disabled{opacity:.4;cursor:not-allowed}
+</style>
+<script>
+(function(){
+ const root=document.getElementById('foet-map-2026');if(!root||root.dataset.ready)return;root.dataset.ready='1';
+ const equipment={
+  'lasers':{name:'EKSPLA Atlantic 5 · Light Conversion CARBIDE',usage:'Імпульсні лазерні дослідження; демонстрації під керівництвом викладача'},
+  'sources':{name:'He-Ne лазери та лазерні діоди 1550 нм',usage:'Джерела випромінювання та оптичні тракти'},
+  'spectro':{name:'StellarNet DS-NIR-512 · BLUE-Wave',usage:'Реєстрація та аналіз спектрів'},
+  'meters':{name:'Thorlabs PM122D · Ophir Nova II · Coherent LabMax-TOP',usage:'Вимірювання параметрів оптичного випромінювання'},
+  'detectors':{name:'Thorlabs PDA20C · DET01CFC/M · PDB450C-AC',usage:'Фотоприймальні та вимірювальні тракти'},
+  'fiber':{name:'Fujikura FSM-15S · Thorlabs FS201 · CK03',usage:'Підготовка й з’єднання оптичного волокна'},
+  'optics':{name:'Оптичні столи, лінзи, дзеркала, оптомеханіка',usage:'Складання й юстування оптичних схем'},
+  'electronics':{name:'SIGLENT · UNI-T · Arduino',usage:'Генерування, вимірювання та опрацювання електричних сигналів'},
+  'camera':{name:'Kurokesu C2M_USBC · Tamron',usage:'Реєстрація та оброблення зображень'},
+  'crypto':{name:'Навчальний комплект квантової криптографії',usage:'Демонстрація принципів оптичного захисту інформації'},
+  'thermal':{name:'Камера температурних випробувань GTO-080',usage:'Дослідження температурної залежності характеристик'},
+  'pc':{name:'Комп’ютерні робочі станції',usage:'Розрахунки, моделювання, опрацювання даних'}
+ };
+ const courses=[
+  ['ОК 01','Методологія наукових досліджень, організація науки та авторське право',[]],
+  ['ОК 02','Державні еталони України',['meters','pc']],
+  ['ОК 03','Інформаційно-вимірювальні системи і комплекси',['spectro','detectors','electronics','sources','optics','camera']],
+  ['ОК 03.1','Курсова робота з ОК 03',['spectro','detectors','electronics','optics']],
+  ['ОК 04','Теорія оцінювання якості вимірювань',['meters','spectro','thermal','pc']],
+  ['ОК 05','Нормативне забезпечення інформаційно-вимірювальних технологій',[]],
+  ['ОК 06','Проєктування інтелектуальних інформаційно-вимірювальних систем та IoT',['electronics','detectors','camera','thermal','pc']],
+  ['ОК 07','Нанофотоніка',['lasers','spectro','sources','detectors','optics','pc']],
+  ['ОК 08','Нелінійна прикладна оптика',['lasers','meters','spectro','optics']],
+  ['ОК 09','Професійна практика',[]],
+  ['ОК 10','Кваліфікаційна робота',['lasers','spectro','fiber','detectors','optics','electronics','pc']],
+  ['ВК1','Квантовий захист інформації',['crypto','sources','detectors'], 5, '2 семестр'],
+  ['ВК2','Квантова оптика мікро- та наноструктур',['lasers','spectro','detectors'], 5, '2 семестр'],
+  ['ВК3','Оптичні та квантові процесори',['optics','sources','detectors','pc'], 5, '2 семестр'],
+  ['ВК4','Світлодіодні технології',['spectro','meters','electronics'], 5, '2 семестр'],
+  ['ВК5','Комп’ютерна фотоніка',['pc','optics','sources'], 5, '2 семестр'],
+  ['ВК6','Біофотоніка',['spectro','sources','detectors'], 5, '2 семестр'],
+  ['ВК7','Оптична спектроскопія',['spectro','meters','optics'], 5, '2 семестр'],
+  ['ВК8','Інженерія волоконно-оптичних інформаційних систем',['fiber','sources','detectors','optics'], 5, '2 семестр']
+ ];
+ const bachelorRequired=[
+  ['ОК 01', 'Українське фахове мовлення', []],
+  ['ОК 02', 'Іноземна мова', []],
+  ['ОК 03*', 'Українська мова як іноземна', []],
+  ['ОК 04', 'Філософія', []],
+  ['ОК 05', 'Основи права', []],
+  ['ОК 06', 'Фізичне виховання (за рахунок вільного часу студентів)', []],
+  ['ОК 07**', 'Українська мова як іноземна (додатковий компонент)', []],
+  ['ОК 08', 'Вища математика', []],
+  ['ОК 09', 'Фізика', []],
+  ['ОК 10', 'Безпека життєдіяльності', []],
+  ['ОК 11', 'Економіка та бізнес', []],
+  ['ОК 12', 'Вища математика (спецглави)', []],
+  ['ОК 13.1', 'Основи електротехніки та електроніки. Частина 1', ['electronics']],
+  ['ОК 13.2', 'Основи електротехніки та електроніки. Частина 2', ['electronics']],
+  ['ОК 14', 'Проєктування інтелектуальних вимірювальних систем', ['electronics', 'detectors', 'pc']],
+  ['ОК 15', 'Лінійно-кутові вимірювання', []],
+  ['ОК 16.1', 'Інформатика. Частина 1', ['pc']],
+  ['ОК 16.2', 'Інформатика. Частина 2', ['pc']],
+  ['ОК 17', 'Вступ до спеціальності', []],
+  ['ОК 18', 'Інженерна та комп’ютерна графіка', []],
+  ['ОК 19', 'Інформаційні технології', ['pc', 'electronics']],
+  ['ОК 19.1', 'Курсова робота з дисципліни «Інформаційні технології»', ['pc']],
+  ['ОК 20', 'Основи технічного регулювання', []],
+  ['ОК 21', 'Теорія алгоритмів', []],
+  ['ОК 22', 'Чисельні методи', ['pc']],
+  ['ОК 23', 'Інформаційні бази даних', []],
+  ['ОК 24', 'Основи метрології та вимірювальних технологій', []],
+  ['ОК 24.1', 'Курсова робота з дисципліни «Основи метрології та вимірювальних технологій»', []],
+  ['ОК 25', 'Основи забезпечення простежуваності вимірювань', []],
+  ['ОК 26', 'Оптика', ['sources', 'optics', 'meters']],
+  ['ОК 26.1', 'Курсова робота з дисципліни «Оптика»', ['optics', 'sources']],
+  ['ОК 27', 'Комп’ютерна обробка оптичних сигналів', ['camera', 'pc', 'detectors']],
+  ['ОК 28', 'Волоконно-оптичні лінії зв’язку', ['fiber', 'sources', 'detectors']],
+  ['ОК 29', 'Оптоелектроніка та сенсорика', ['detectors', 'sources', 'electronics']],
+  ['ОК 30', 'Оптичні вимірювання', ['spectro', 'meters', 'optics']],
+  ['ОК 31.1', 'Python. Частина 1', ['pc']],
+  ['ОК 31.2', 'Python. Частина 2', ['pc']],
+  ['ОК 32', 'Програмування в оптиці та фотоніці', ['pc', 'optics']],
+  ['ОК 33', 'Моделювання в МІТ Photonic-Bands', ['pc']],
+  ['ОК 34', 'Комп’ютерне моделювання пристроїв фотоніки', ['pc', 'optics']],
+  ['ОК 35', 'Виробнича практика', ['optics', 'electronics', 'spectro']],
+  ['ОК 36', 'Передатестаційна практика', ['optics', 'spectro', 'pc']],
+  ['ОК 37', 'Кваліфікаційна робота', ['optics', 'spectro', 'pc', 'detectors']],
+  ['ОК 38', 'Базова загальновійськова підготовка (теоретична підготовка)', []]
+ ];
+ const bachelorElective=[
+  ["ВБ 1", "Мікрохвильові технології та прилади", ["electronics"], 5, "5 семестр"],
+  ["ВБ 2", "Мікроелектроніка та нанотехнології", ["electronics", "pc"], 5, "5 семестр"],
+  ["ВБ 3", "Застосування лазерного та оптоелектронного обладнання", ["lasers", "meters", "detectors"], 5, "7 семестр"],
+  ["ВБ 4", "Оптико-електронні системи в поліграфії та медіаіндустрії", ["camera", "optics"], 5, "7 семестр"],
+  ["ВБ 5", "Оптоінформатика", ["pc", "optics"], 5, "7 семестр"],
+  ["ВБ 6", "Квантові системи в ІТ технологіях", ["crypto", "pc"], 5, "7 семестр"],
+  ["ВБ 7", "Наноматеріали та нанотехнології", ["lasers", "spectro"], 5, "8 семестр"],
+  ["ВБ 9", "Квантові засоби в фізичних дослідженнях", ["crypto", "sources"], 6, "8 семестр"],
+  ["ВБ 10", "Експериментальні засоби в інформаційно-оптичних системах", ["spectro", "detectors", "optics"], 6, "8 семестр"],
+  ["ВБ 11", "Лазерні прецизійні прилади", ["lasers", "optics"], 5.5, "8 семестр"],
+  ["ВБ 12", "Інформаційні фотонні пристрої", ["sources", "detectors"], 5.5, "8 семестр"],
+  ["ВБ 13", "Технологія виготовлення оптоінформаційних систем", ["optics", "electronics"], 6, "7 семестр"],
+  ["ВБ 14", "Технологія виготовлення пристроїв фотоніки для обчислювальних систем", ["optics", "pc"], 6, "7 семестр"],
+  ["ВБ 15", "Конструювання лазерних пристроїв", ["optics", "lasers"], 6, "4 семестр"],
+  ["ВБ 16", "Комп’ютерне проектування лазерів і пристроїв оптоінформаційної техніки", ["pc", "optics"], 6, "4 семестр"],
+  ["ВБ 17", "Принципи розроблення VR, AR, MR систем", ["pc", "camera"], 4.5, "6 семестр"],
+  ["ВБ 18", "VR-системи в індустрії та медицині", ["pc", "camera"], 4.5, "6 семестр"],
+  ["ВБ 19", "Біометрія та алгоритми розпізнавання образів", ["pc", "camera"], 5, "7 семестр"],
+  ["ВБ 20", "Машинний зір", ["pc", "camera"], 5, "7 семестр"]
+ ];
+ const bachelorSemesters=[
+  {title:'1 семестр · Початок навчання',codes:['ОК 02','ОК 05','ОК 08','ОК 09','ОК 16.1','ОК 17','ОК 18','ОК 21','ОК 23'],note:'Загальна, природничо-наукова та базова підготовка'},
+  {title:'2 семестр · Фундаментальна база',codes:['ОК 01','ОК 02','ОК 08','ОК 09','ОК 10','ОК 16.2','ОК 20','ОК 22'],note:'Математика, фізика, інформатика та технічні дисципліни'},
+  {title:'3 семестр · Перехід до фаху',codes:['ОК 02','ОК 04','ОК 12','ОК 13.1','ОК 26','ОК 26.1','ОК 31.1','ОК 38'],note:'Оптика, електроніка, програмування та фахова підготовка'},
+  {title:'4 семестр · Оптичні та цифрові технології',codes:['ОК 02','ОК 13.2','ОК 27','ОК 31.2','ОК 34'],note:'Обробка оптичних сигналів і моделювання пристроїв'},
+  {title:'5 семестр · Вимірювальні системи',codes:['ОК 14','ОК 24','ОК 24.1','ОК 29','ОК 30','ОК 32'],note:'Сенсорика, вимірювання та програмування у фотоніці'},
+  {title:'6 семестр · Інженерні технології',codes:['ОК 15','ОК 19','ОК 19.1','ОК 28','ОК 33','ОК 35'],note:'Волоконна оптика, інформаційні технології та виробнича практика'},
+  {title:'7 семестр · Професійне спрямування',codes:['ОК 11','ОК 25','ОК 35'],note:'Фахова підготовка, практика та вибір дисциплін'},
+  {title:'8 семестр · Завершення бакалаврату',codes:['ОК 36','ОК 37'],note:'Передатестаційна практика і кваліфікаційна робота'}
+ ];
+ const phdCourses=[
+  ['ОК 01','Філософія та методологія сучасної науки, проблеми формування критичного мислення',[],3,'1 семестр',['ПР1']],
+  ['ОК 02','Психолого-педагогічні основи науково-педагогічної діяльності',[],2,'2 семестр',['ПР2']],
+  ['ОК 03','Методологія наукових досліджень',[],3,'1 семестр',['ПР6','ПР7']],
+  ['ОК 04','Особливості сучасної наукової комунікації',[],2,'2 семестр',['ПР3','ПР4','ПР5']],
+  ['ОК 05','Сучасні методи аналізу даних',[],2,'1 семестр',['ПР7','ПР8']],
+  ['ОК 06','Іноземна мова як мова наукової комунікації',[],6,'1–2 семестри',['ПР3','ПР4','ПР5']],
+  ['ОК 07','Обчислювальні методи розв’язання прикладних фізичних задач',[],4,'1 семестр',['ПР6','ПР8','ПР9','ПР10']],
+  ['ОК 08','Педагогічна практика',[],2,'6 семестр',['ПР2','ПР3','ПР4','ПР5','ПР6','ПР8','ПР9','ПР10']],
+  ['ВК 1','Нанотехнології та наноматеріали',[],8,'2 семестр',[]],
+  ['ВК 2','Комп’ютерні методи нанофотоніки',[],4,'2 семестр',[]],
+  ['ВК 3','Оптичні методи прикладної фізики',[],4,'2 семестр',[]],
+  ['ВК 4','Фізика надкоротких лазерних імпульсів',[],8,'2 семестр',[]]
+ ];
+ const phdMilestones=[
+  {title:'PhD · 1 семестр — Освітня складова',level:'phd',codes:['ОК 01','ОК 03','ОК 05','ОК 06','ОК 07'],note:'Перший рік · 1 семестр. Обов’язкові дисципліни за навчальним планом 2026 року'},
+  {title:'PhD · 2 семестр — Освітня складова та вибір',level:'phd',codes:['ОК 02','ОК 04','ОК 06','ВК 1','ВК 2','ВК 3','ВК 4'],note:'Вибіркові дисципліни наведено як каталог можливостей; за індивідуальним планом обирають компоненти на 8 кредитів ЄКТС'},
+  {title:'PhD · 2–3 роки — Наукові дослідження',level:'phd',codes:[],items:['Наукові дослідження за індивідуальним планом','Аналіз і апробація отриманих результатів','Підготовка наукових публікацій'],note:'Наукова складова ОНП: 148 кредитів ЄКТС на наукові дослідження за весь період підготовки'},
+  {title:'PhD · 6 семестр — Педагогічна практика',level:'phd',codes:['ОК 08'],note:'Педагогічна практика — обов’язковий компонент, 2 кредити ЄКТС'},
+  {title:'PhD · 4 рік — Дисертація та захист',level:'phd',codes:[],items:['Робота над дисертацією','Виконання індивідуального плану підготовки','Публічний захист дисертації'],note:'Наукова складова ОНП: робота над дисертацією — 60 кредитів ЄКТС за весь період підготовки'}
+ ];
+ const route=[
+  ...bachelorSemesters.map((x,i)=>({...x,level:'bachelor',label:'Бакалаврат · '+(i+1)+' семестр'})),
+  {title:'Магістратура · Поглиблена підготовка',level:'master',codes:['ОК 01','ОК 02','ОК 03','ОК 03.1','ОК 04','ОК 05','ОК 06','ОК 07','ОК 08'],note:'Обов’язкові освітні компоненти магістерської програми'},
+  {title:'Магістратура · Індивідуальна освітня траєкторія',level:'master-elective',codes:['ВК1','ВК2','ВК3','ВК4','ВК5','ВК6','ВК7','ВК8'],note:'Вибіркові компоненти: перелік можливостей, а не всі дисципліни, які студент має пройти'},
+  {title:'Магістратура · Практика та кваліфікаційна робота',level:'master',codes:['ОК 09','ОК 10'],note:'Практична та дослідницька підготовка'},
+  ...phdMilestones
+ ];
+ let mode='route',index=0,courseType='required',level='bachelor';
+ const levels=root.querySelector('[data-levels]');
+ const courseTypes=root.querySelector('[data-course-types]');
+ const bachelorCourses=[...bachelorRequired,...bachelorElective];
+ const visibleCourses=()=> (level==='bachelor'?bachelorCourses:level==='master'?courses:phdCourses).map((c,i)=>({c,i})).filter(x=>courseType==='required'?x.c[0].startsWith('ОК'):x.c[0].startsWith(level==='bachelor'?'ВБ':'ВК')); 
+ const select=root.querySelector('select'),meta=root.querySelector('[data-meta]'),title=root.querySelector('[data-title]'),desc=root.querySelector('[data-desc]'),cards=root.querySelector('[data-cards]'),filterLabel=root.querySelector('label');
+ function el(tag,cls,content){const n=document.createElement(tag);if(cls)n.className=cls;if(content!==undefined)n.textContent=content;return n}
+ function showCards(items){cards.replaceChildren();items.forEach(item=>{const card=el('div','foet-map__card');card.append(el('strong','',item.name));card.append(el('small','',item.usage));cards.append(card)})}
+ function fill(){select.replaceChildren();const opts=mode==='course'?visibleCourses().map(({c,i})=>[i,c[0]+' — '+c[1]]):mode==='equipment'?Object.entries(equipment).map(([k,v])=>[k,v.name]):route.map((r,i)=>[i,(i+1)+'. '+r.title]);opts.forEach(([value,label])=>{const o=el('option','',label);o.value=value;select.append(o)});select.value=String(mode==='equipment'?Object.keys(equipment)[0]:mode==='course'?(visibleCourses()[0]?.i??0):0)}
+ function render(){const v=select.value;root.querySelectorAll('.foet-map__route-nav,.foet-map__route-elective').forEach(x=>x.remove());if(mode==='course'){const source=level==='bachelor'?bachelorCourses:level==='master'?courses:phdCourses;const c=source[Number(v)]||source[0];if(!c)return;meta.textContent=(level==='bachelor'?'Бакалаврат':level==='master'?'Магістратура':'PhD')+' · '+c[0];title.textContent=c[1];desc.textContent=level==='phd'?'Обсяг: '+c[3]+' кредитів ЄКТС · '+c[4]+'. '+(c[5].length?'ПРН за матрицею ОНП: '+c[5].join(', ')+'. ':'')+(c[0].startsWith('ВК')?'Вибірковий компонент: студент обирає дисципліни загальним обсягом 8 кредитів. ':'')+'Прив’язка до обладнання ФОЕТ ще не підтверджена.':c[2].length?'Обладнання ФОЕТ, яке може бути пов’язане з цією дисципліною.':'Для цього компонента спеціалізоване обладнання ФОЕТ не зазначено. Компонент є повноцінною частиною освітньої програми.';showCards(c[2].map(k=>equipment[k]));}
+ else if(mode==='equipment'){const e=equipment[v];meta.textContent='Матеріально-технічна база';title.textContent=e.name;desc.textContent=e.usage;showCards([...bachelorCourses.map(c=>({c,level:'Бакалаврат'})),...courses.map(c=>({c,level:'Магістратура'})),...phdCourses.map(c=>({c,level:'PhD'}))].filter(x=>x.c[2].includes(v)).map(x=>({name:x.level+': '+x.c[0]+' — '+x.c[1],usage:'Можливий зв’язок із навчанням'})));}
+ else{index=Number(v);const r=route[index];meta.textContent='Етап '+(index+1)+' із '+route.length;title.textContent=r.title;desc.textContent=r.note+'. Натисніть на дисципліну, щоб переглянути її картку та, за наявності підтвердженого зв’язку, обладнання ФОЕТ.';cards.replaceChildren();const source=r.level==='bachelor'?bachelorCourses:r.level==='phd'?phdCourses:courses;if(r.level==='phd'&&r.items){r.items.forEach(item=>{const card=el('div','foet-map__card');card.append(el('strong','',item));card.append(el('small','','Наукова складова · індивідуальна траєкторія аспіранта'));cards.append(card)});}const listed=r.codes.map(code=>source.find(c=>c[0]===code)).filter(Boolean);listed.forEach(c=>{const card=el('button','foet-map__card foet-map__route-course');card.type='button';card.append(el('strong','',c[0]+' — '+c[1]));card.append(el('small','',r.level==='phd'?(c[3]+' кредитів ЄКТС · '+c[4]+(c[5].length?' · '+c[5].join(', '):'')):c[2].length?'Обладнання ФОЕТ: '+c[2].map(k=>equipment[k].name).join('; '):'Спеціалізоване обладнання ФОЕТ не зазначено'));card.addEventListener('click',()=>{level=r.level==='bachelor'?'bachelor':r.level==='phd'?'phd':'master';courseType=c[0].startsWith('ОК')?'required':'elective';mode='course';root.querySelectorAll('[data-tab]').forEach(b=>{b.classList.toggle('is-active',b.dataset.tab==='course');b.setAttribute('aria-selected',String(b.dataset.tab==='course'))});root.querySelectorAll('[data-level]').forEach(b=>{const a=b.dataset.level===level;b.classList.toggle('is-active',a);b.setAttribute('aria-pressed',String(a))});root.querySelectorAll('[data-course-type]').forEach(b=>{const a=b.dataset.courseType===courseType;b.classList.toggle('is-active',a);b.setAttribute('aria-pressed',String(a))});levels.hidden=false;courseTypes.hidden=false;filterLabel.textContent='Оберіть освітній компонент';fill();const idx=(level==='bachelor'?bachelorCourses:level==='phd'?phdCourses:courses).findIndex(x=>x===c);select.value=String(idx);render()});cards.append(card)});if(r.level==='phd'&&r.codes.some(x=>x.startsWith('ВК'))){const extra=el('div','foet-map__route-elective','Увага: ВК 1–4 — перелік можливих дисциплін, а не чотири обов’язкові для одночасного проходження. За ОНП обирають 8 кредитів ЄКТС.');cards.after(extra)}if(r.level==='bachelor'){const extra=el('div','foet-map__route-elective','Вибіркові дисципліни бакалаврату доступні в розділі «За дисципліною → Вибіркові компоненти».');cards.after(extra)}const bar=el('div','foet-map__route-nav');const prev=el('button','','← Назад'),next=el('button','',index===route.length-1?'Спочатку':'Далі →');prev.type=next.type='button';prev.disabled=index===0;prev.addEventListener('click',()=>{select.value=String(index-1);render()});next.addEventListener('click',()=>{select.value=String((index+1)%route.length);render()});bar.append(prev,next);cards.after(bar)}
+ }
+ root.querySelectorAll('[data-level]').forEach(b=>b.addEventListener('click',()=>{level=b.dataset.level;root.querySelectorAll('[data-level]').forEach(x=>{x.classList.toggle('is-active',x===b);x.setAttribute('aria-pressed',String(x===b))});courseTypes.hidden=false;fill();render()}));
+ root.querySelectorAll('[data-course-type]').forEach(b=>b.addEventListener('click',()=>{courseType=b.dataset.courseType;root.querySelectorAll('[data-course-type]').forEach(x=>{x.classList.toggle('is-active',x===b);x.setAttribute('aria-pressed',String(x===b))});fill();render()}));
+ root.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.tab;levels.hidden=mode!=='course';courseTypes.hidden=mode!=='course';root.querySelectorAll('[data-tab]').forEach(x=>{x.classList.toggle('is-active',x===b);x.setAttribute('aria-selected',String(x===b))});filterLabel.textContent=mode==='course'?'Оберіть освітній компонент':mode==='equipment'?'Оберіть обладнання':'Оберіть етап навчання';fill();render()}));select.addEventListener('change',render);root.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>{mode='route';root.querySelectorAll('[data-tab]').forEach(x=>{const active=x.dataset.tab==='route';x.classList.toggle('is-active',active);x.setAttribute('aria-selected',String(active))});levels.hidden=true;courseTypes.hidden=true;filterLabel.textContent='Оберіть етап навчання';fill();select.value=String(route.findIndex(x=>x.level===b.dataset.jump));render()}));levels.hidden=true;courseTypes.hidden=true;filterLabel.textContent='Оберіть етап навчання';fill();render();
+
+ const plannerLevel=root.querySelector('#foet-personal-level'),plannerOptions=root.querySelector('#foet-personal-options'),plannerSummary=root.querySelector('#foet-personal-summary'),plannerSelected=root.querySelector('#foet-personal-selected');
+ // Семестрові квоти вибіркових ЄКТС відповідно до підсумкових рядків навчальних планів.
+ const semesterTargets={bachelor:{3:{human:3,professional:0},4:{human:0,professional:6},5:{human:0,professional:5},6:{human:3,professional:4.5},7:{human:0,professional:22},8:{human:0,professional:16.5}},master:{1:{human:3,professional:0},2:{human:0,professional:20}},phd:{2:{human:0,professional:8}}};
+ const activeSemester={bachelor:3,master:1,phd:2};
+ const semNumber=c=>{const m=String(c[4]||'').match(/(\d+)\s*семестр/);return m?Number(m[1]):null};
+ const courseYear=(lvl,sem)=>lvl==='phd'?Math.ceil(sem/2):Math.ceil(sem/2);
+ const semSum=(lvl,sem,category)=>{let sum=externalChoices[lvl].filter(x=>Number(x.sem)===sem&&x.category===category).reduce((a,x)=>a+x.credits,0);if(category==='professional'){const source=lvl==='bachelor'?bachelorElective:lvl==='master'?courses:phdCourses;source.filter(c=>plannerChoices[lvl].has(c[0])&&semNumber(c)===sem).forEach(c=>sum+=internalCredit(c)||0)}return sum};
+ function guideRender(){const lvl=plannerLevel.value,sem=activeSemester[lvl],target=semesterTargets[lvl][sem],nav=root.querySelector('#foet-sem-nav'),head=root.querySelector('#foet-sem-head'),status=root.querySelector('#foet-sem-status');nav.replaceChildren();Object.keys(semesterTargets[lvl]).forEach(key=>{const n=Number(key),b=el('button',n===sem?'active':'',n+' семестр');b.type='button';b.addEventListener('click',()=>{activeSemester[lvl]=n;plannerRender()});nav.append(b)});const required=target.human+target.professional,h=semSum(lvl,sem,'human'),pr=semSum(lvl,sem,'professional');head.textContent=`${courseYear(lvl,sem)}-й рік навчання · ${sem}-й семестр · ${required} ЄКТС вибіркових`;status.replaceChildren();status.append(el('div','',`Вибрано ${h+pr} із ${required} ЄКТС.`));if(target.human)status.append(el('div',h===target.human?'foet-sem-ok':'foet-sem-alert',`Гуманітарні: ${h} / ${target.human} ЄКТС`));if(target.professional)status.append(el('div',pr===target.professional?'foet-sem-ok':'foet-sem-alert',`Професійні: ${pr} / ${target.professional} ЄКТС`));const remaining=required-h-pr;if(remaining>0)status.append(el('div','',`Ще потрібно ${remaining} ЄКТС у цьому семестрі.`));if(remaining===0)status.append(el('div','foet-sem-ok','✓ Кредити семестру набрані. Можна перейти далі.'));const select=root.querySelector('#foet-ext-sem');select.replaceChildren();Object.keys(semesterTargets[lvl]).forEach(key=>{const option=document.createElement('option');option.value=key;option.textContent=key+' семестр';select.append(option)});select.value=String(sem);root.querySelector('#foet-ext-category').value=target.human&&!target.professional?'human':'professional';}
+ const plannerChoices={bachelor:new Set(),master:new Set(),phd:new Set()};
+ const externalChoices={bachelor:[],master:[],phd:[]};
+ // Квоти вибіркових компонентів для трьох рівнів освіти.
+ const quotas={bachelor:{total:60,human:6},master:{total:23,human:3},phd:{total:8,human:0}};
+ const plannerData=()=>plannerLevel.value==='bachelor'?bachelorCourses:plannerLevel.value==='master'?courses:phdCourses;
+ const plannerElectives=()=>plannerData().filter(c=>c[0].startsWith(plannerLevel.value==='bachelor'?'ВБ':'ВК'));
+ // Курсовий проєкт на 1 ЄКТС нерозривно пов'язаний із відповідною дисципліною (6 ЄКТС).
+ const linkedProjects={
+   'ВБ 13':'Курсовий проєкт з дисципліни «Технологія виготовлення оптоінформаційних систем»',
+   'ВБ 14':'Курсовий проєкт з дисципліни «Технологія виготовлення пристроїв фотоніки для обчислювальних систем»'
+ };
+ const baseCredit=c=>typeof c[3]==='number'&&c[3]>0?c[3]:null;
+ const internalCredit=c=>baseCredit(c)===null?null:baseCredit(c)+(plannerLevel.value==='bachelor'&&linkedProjects[c[0]]?1:0);
+ const creditLabel=c=>linkedProjects[c[0]]&&plannerLevel.value==='bachelor'?'6 ЄКТС + курсовий проєкт 1 ЄКТС = 7 ЄКТС':internalCredit(c)+' ЄКТС';
+ function totals(){const level=plannerLevel.value,selected=plannerElectives().filter(c=>plannerChoices[level].has(c[0])),extra=externalChoices[level],known=selected.reduce((s,c)=>s+(internalCredit(c)||0),0),unknown=selected.filter(c=>internalCredit(c)===null),human=extra.filter(x=>x.category==='human').reduce((s,x)=>s+x.credits,0),prof=extra.filter(x=>x.category==='professional').reduce((s,x)=>s+x.credits,0),total=known+human+prof,q=quotas[level];return {selected,extra,known,unknown,human,prof,total,q,complete:!unknown.length&&total===q.total&&human===q.human&&known+prof===q.total-q.human&&Object.entries(semesterTargets[level]).every(([sem,target])=>semSum(level,Number(sem),'human')===target.human&&semSum(level,Number(sem),'professional')===target.professional)};}
+ function plannerText(){const t=totals(),level=plannerLevel.value;plannerSummary.replaceChildren();const intro=el('p','',`Вибрано ${t.selected.length+t.extra.length} дисциплін · ${t.total} / ${t.q.total} ЄКТС (підтверджені або введені вручну кредити)`);plannerSummary.append(intro);[['Гуманітарні та соціально-економічні',t.human,t.q.human],['Професійно-практичні (ОП + каталог)',t.known+t.prof,t.q.total-t.q.human],['Загальний обсяг вибору',t.total,t.q.total]].forEach(([name,val,target])=>{const box=el('div','foet-map__meter');box.append(el('div','',`${name}: ${val} / ${target} ЄКТС`));const progress=document.createElement('progress');progress.max=target||1;progress.value=Math.min(val,target);box.append(progress);plannerSummary.append(box)});const warnings=[];if(t.unknown.length)warnings.push('Для '+t.unknown.length+' вибіркових компонентів ОП не зазначено перевірених кредитів. Їх потрібно звірити з навчальним планом.');if(t.total>t.q.total)warnings.push('Перевищено загальний ліміт вибіркових кредитів.');if(t.human>t.q.human)warnings.push('Перевищено квоту гуманітарних дисциплін.');if(t.known+t.prof>t.q.total-t.q.human)warnings.push('Перевищено квоту професійних дисциплін.');if(t.human<t.q.human)warnings.push('Потрібно ще '+(t.q.human-t.human)+' ЄКТС гуманітарної та соціально-економічної складової.');if(t.total===t.q.total&&!t.complete)warnings.push('Перевірте розподіл кредитів за семестрами: сума правильна, але семестрові квоти ще не виконані.');if(t.total<t.q.total)warnings.push('До загального обсягу бракує '+(t.q.total-t.total)+' ЄКТС.');warnings.forEach(w=>plannerSummary.append(el('p','foet-map__error',w)));if(t.complete)plannerSummary.append(el('p','','✓ Вимоги за введеними кредитами виконані. Перевірте відповідність офіційним правилам.'));plannerSelected.textContent=t.selected.map(c=>'• '+c[0]+' — '+c[1]+(internalCredit(c)?' ('+creditLabel(c)+')':' (кредити не підтверджені)')+(linkedProjects[c[0]]?'\n   ↳ '+linkedProjects[c[0]]+' (1 ЄКТС, автоматично)':'')).concat(t.extra.map(x=>'• '+x.name+' ('+x.credits+' ЄКТС, '+(x.category==='human'?'гуманітарна':'професійна')+')')).join('\n')||'Поки не вибрано жодної дисципліни.';root.querySelector('#foet-personal-print').disabled=false;}
+ function plannerRender(){plannerOptions.replaceChildren();guideRender();const sem=activeSemester[plannerLevel.value];plannerElectives().filter(c=>semNumber(c)===sem).forEach(c=>{const label=el('label',''),input=document.createElement('input'),cr=internalCredit(c),span=el('span','',c[0]+' — '+c[1]+(cr?' ('+creditLabel(c)+')':' (кредити потребують звірки)'));input.type='checkbox';input.checked=plannerChoices[plannerLevel.value].has(c[0]);input.addEventListener('change',()=>{const set=plannerChoices[plannerLevel.value],t=totals();if(input.checked&&cr!==null&&(t.total+cr>t.q.total||t.known+t.prof+cr>t.q.total-t.q.human||semSum(plannerLevel.value,sem,'professional')+cr>semesterTargets[plannerLevel.value][sem].professional)){input.checked=false;root.querySelector('#foet-ext-feedback').textContent='Додавання перевищить загальний ліміт ЄКТС.';return;}input.checked?set.add(c[0]):set.delete(c[0]);guideRender();plannerText()});label.append(input,span);plannerOptions.append(label)});if(!plannerOptions.children.length)plannerOptions.textContent=semesterTargets[plannerLevel.value][sem].professional?'Для цього семестру кафедральних дисциплін у переліку немає. Можна використати загальний каталог ХНУРЕ.':'У цьому семестрі кафедральні професійні вибіркові дисципліни не передбачені.';renderExternal();plannerText();}
+ function renderExternal(){const list=root.querySelector('#foet-ext-list');list.replaceChildren();externalChoices[plannerLevel.value].forEach((x,i)=>{const row=el('div','');row.append(el('span','',`${x.name} — ${x.credits} ЄКТС · ${x.category==='human'?'Гуманітарна':'Професійна'} · семестр ${x.sem}`));const del=el('button','','Видалити');del.type='button';del.addEventListener('click',()=>{externalChoices[plannerLevel.value].splice(i,1);renderExternal();guideRender();plannerText()});row.append(del);list.append(row)});}
+ root.querySelector('#foet-ext-add').addEventListener('click',()=>{const level=plannerLevel.value,name=root.querySelector('#foet-ext-name').value.trim(),credits=Number(root.querySelector('#foet-ext-credits').value),category=root.querySelector('#foet-ext-category').value,sem=root.querySelector('#foet-ext-sem').value.trim(),feedback=root.querySelector('#foet-ext-feedback'),t=totals();if(!name||!Number.isFinite(credits)||credits<=0||!sem){feedback.textContent='Вкажіть назву, кредити ЄКТС і семестр.';return;}const semTarget=semesterTargets[level][Number(sem)];if(!semTarget||semSum(level,Number(sem),category)+credits>semTarget[category]){feedback.textContent='У вибраному семестрі немає достатнього залишку кредитів цієї категорії.';return;}if(t.total+credits>t.q.total||(category==='human'&&t.human+credits>t.q.human)||(category==='professional'&&t.known+t.prof+credits>t.q.total-t.q.human)){feedback.textContent=`Не можна додати ${credits} ЄКТС: залишилося лише ${Math.max(0,t.q.total-t.total)} ЄКТС.`;return;}if(externalChoices[level].some(x=>x.name.toLowerCase()===name.toLowerCase())){feedback.textContent='Цю дисципліну вже додано.';return;}externalChoices[level].push({name,credits,category,sem});feedback.textContent='Додано до попереднього маршруту. Перевірте введені дані за офіційним каталогом ХНУРЕ.';root.querySelector('#foet-ext-name').value='';root.querySelector('#foet-ext-credits').value='';renderExternal();guideRender();plannerText()});
+ plannerLevel.addEventListener('change',()=>{root.querySelector('#foet-ext-feedback').textContent='';plannerRender()});
+ root.querySelector('#foet-personal-copy').addEventListener('click',()=>{const t=totals();const result='Моя індивідуальна освітня траєкторія — '+plannerLevel.options[plannerLevel.selectedIndex].text+'\n'+t.selected.map(c=>c[0]+' — '+c[1]).concat(t.extra.map(x=>x.name+' — '+x.credits+' ЄКТС ('+x.category+')')).join('\n')+'\nРазом: '+t.total+' / '+t.q.total+' ЄКТС';if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(result).then(()=>root.querySelector('#foet-personal-copy').textContent='Скопійовано').catch(()=>root.querySelector('#foet-personal-copy').textContent='Копіювання недоступне');});
+ root.querySelector('#foet-personal-print').addEventListener('click',()=>{
+   const current=plannerLevel.value;
+   const selected=plannerElectives().filter(c=>plannerChoices[current].has(c[0]));
+   const all=plannerData();
+   const required=all.filter(c=>c[0].startsWith('ОК'));
+   const external=externalChoices[current];
+   const esc=x=>String(x??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+   const levelName=plannerLevel.options[plannerLevel.selectedIndex].text;
+   const semesterByCode={};
+   route.filter(r=>r.level===current).forEach(r=>r.codes.forEach(code=>{if(!(code in semesterByCode))semesterByCode[code]=r.title}));
+   const semLabel=c=>c[4]||semesterByCode[c[0]]||'Семестр за навчальним планом';
+   const credit=c=>typeof c[3]==='number'?c[3]+' ЄКТС':'—';
+   const rows=required.map(c=>({sem:semLabel(c),code:c[0],name:c[1],credit:credit(c),type:'Обов’язкова'}));
+   selected.forEach(c=>rows.push({sem:semLabel(c),code:c[0],name:c[1],credit:credit(c),type:'Вибіркова ОП'}));
+   external.forEach(x=>rows.push({sem:x.sem,code:'—',name:x.name,credit:x.credits+' ЄКТС',type:x.category==='human'?'Каталог: гуманітарна':'Каталог: професійна'}));
+   const htmlRows=rows.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(r.sem)+'</td><td>'+esc(r.code)+'</td><td>'+esc(r.name)+'</td><td>'+esc(r.credit)+'</td><td>'+esc(r.type)+'</td></tr>').join('');
+   const chosenCredits=current==='phd'?selected.reduce((sum,c)=>sum+Number(c[3]||0),0):null;
+   const warning='Загалом вибрано '+totals().total+' із '+totals().q.total+' ЄКТС. Гуманітарна складова: '+totals().human+' ЄКТС. ';
+   const win=window.open('','_blank');
+   if(!win){alert('Браузер заблокував вікно друку. Дозвольте спливні вікна для цього сайту.');return;}
+   win.document.open();
+   win.document.write('<!doctype html><html lang="uk"><head><meta charset="utf-8"><title>Моя освітня траєкторія — '+esc(levelName)+'</title><style>@page{size:A4;margin:14mm}body{font:12px Arial,sans-serif;color:#182b40}h1{font-size:21px;color:#175d98;margin-bottom:6px}h2{font-size:14px;margin-top:22px}p{line-height:1.5}table{border-collapse:collapse;width:100%;font-size:10px}th,td{border:1px solid #c7d5e2;padding:6px;text-align:left;vertical-align:top}th{background:#eaf3fa}tr{break-inside:avoid}thead{display:table-header-group}.muted{color:#52687a}.notice{border-left:3px solid #a0b5c8;padding-left:10px;margin-top:16px}.tools{margin:0 0 20px}.tools button{background:#1764a4;color:white;border:0;border-radius:7px;padding:10px 14px;cursor:pointer}@media print{.tools{display:none}} </style></head><body><div class="tools"><button onclick="window.print()">Друкувати / зберегти як PDF</button></div><div class="muted">Харківський національний університет радіоелектроніки · Кафедра ФОЕТ</div><h1>Моя індивідуальна освітня траєкторія</h1><p><b>Рівень освіти:</b> '+esc(levelName)+'</p><p><b>Обов’язкових компонентів у переліку:</b> '+required.length+' · <b>Обраних вибіркових ОП:</b> '+selected.length+' · <b>Із загального каталогу:</b> '+external.length+(chosenCredits!==null?' · <b>Вибіркових ЄКТС ОНП:</b> '+chosenCredits+' / 8':'')+'</p><h2>Освітні компоненти та персональний вибір</h2><table><thead><tr><th>№</th><th>Семестр / етап</th><th>Код</th><th>Дисципліна</th><th>Кредити</th><th>Статус</th></tr></thead><tbody>'+htmlRows+'</tbody></table><p class="notice">'+esc(warning)+'Це попередня інформаційна візуалізація, а не офіційний індивідуальний навчальний план. Доступність дисциплін із загального каталогу, кредити та семестри потребують перевірки за чинним навчальним планом і правилами ХНУРЕ. Для дисциплін із загального каталогу студент перевіряє відповідність офіційним умовам вибору.</p></body></html>');
+   win.document.close();
+   win.focus();
+   // У новій вкладці натисніть «Друкувати / зберегти як PDF».
+ });
+ plannerRender();
+
+})();
+</script>
